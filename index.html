@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403</title>
+    <style>
+        @font-face {
+            font-family: "Nokia Sans";
+            src: url("Nokia Sans S60.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Garet";
+            src: url("Garet.ttf") format("truetype");
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #000;
+        }
+        body, html {
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90vw;
+            opacity: 0;
+            transition: opacity 0.5s;
+            color: #fff;
+        }
+        .container img {
+            width: 10rem;
+            margin-bottom: 1rem;
+        }
+        .container h1 {
+            font-family: "Nokia Sans", Arial, sans-serif;
+            font-size: 5rem;
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+        .container p {
+            font-family: "Garet", Arial, sans-serif;
+            font-size: 1.2rem;
+            margin-top: 0.7rem;
+            word-wrap: break-word;
+            height: 2.4rem;
+            line-height: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        .fade-out {
+            transform: translateY(5%);
+            opacity: 0;
+        }
+        .fade-in {
+            transform: translateY(-5%);
+            opacity: 1;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .preloader img {
+            width: 5rem;
+        }
+        .start-message {
+            font-family: "Garet", Arial, sans-serif;
+            position: fixed;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            background-color: rgba(0, 0, 0);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            cursor: pointer;
+            display: none;
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body link="white" vlink="white" alink="white">
+    <div class="background"></div>
+    
+    <div class="preloader">
+        <img src="loading.gif" alt="Загрузка...">
+    </div>
+
+    <div class="start-message" onclick="startMusic()">Нажмите, чтобы продолжить</div>
+
+    <div class="container">
+        <img src="poshel nahui.png" alt="Your Image">
+        <h1><a href="https://ru.m.wikipedia.org/wiki/%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0_403">403</a></h1>
+        <p id="message"></p>
+    </div>
+
+    <audio id="backgroundMusic" src="clown.mp3" loop></audio>
+
+    <script>
+        const messages = [
+            "🤡",
+            "🖕 Я поняла твой запрос, но обрабатывать его не стану.",
+            "☢️ У тебя нет прав здесь находиться!",
+            "👀 Видишь циферку сверху? Да, да, вали от сюда.",
+            "❌ Это закрытое место!",
+            "🗿 Тебе тут точно не рады...",
+            "🛡️ Предъяви ключ доступа. Нету? Скатертью дорога."
+        ];
+
+        let index = 0;
+        const messageElement = document.getElementById("message");
+
+        function updateMessage() {
+            messageElement.classList.remove("fade-in");
+            messageElement.classList.add("fade-out");
+            setTimeout(() => {
+                messageElement.innerHTML = messages[index];
+                messageElement.classList.remove("fade-out");
+                messageElement.classList.add("fade-in");
+                index = (index + 1) % messages.length;
+            }, 500);
+        }
+
+        messageElement.textContent = messages[index];
+        messageElement.classList.add("fade-in");
+        index++;
+        setInterval(updateMessage, 5000);
+
+        window.addEventListener("load", () => {
+            document.querySelector(".preloader").style.display = "none";
+            document.querySelector(".start-message").style.display = "flex";
+        });
+
+        function startMusic() {
+            document.getElementById("backgroundMusic").play();
+            document.querySelector(".start-message").style.display = "none";
+            document.querySelector(".container").style.opacity = "1";
+        }
+    </script>
+</body>
+</html>
