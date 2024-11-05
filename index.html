@@ -112,6 +112,23 @@
         audio {
             display: none;
         }
+        /* Стиль для сообщения, если JavaScript отключен */
+        .no-js-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            background-color: #000;
+            color: white;
+            font-family: "Garet", Arial, sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+        }
     </style>
 </head>
 <body link="white" vlink="white" alink="white">
@@ -159,7 +176,6 @@
         messageElement.textContent = messages[index];
         messageElement.classList.add("fade-in");
         index++;
-        setInterval(updateMessage, 5000);
 
         window.addEventListener("load", () => {
             document.querySelector(".preloader").style.display = "none";
@@ -171,7 +187,14 @@
             document.querySelector(".start-message").style.display = "none";
             document.querySelector(".container").style.opacity = "1";
             document.title = 403;
+            setInterval(updateMessage, 5000);
         }
     </script>
+
+    <noscript>
+        <div class="no-js-message">
+            Для просмотра этого сайта включите JavaScript.
+        </div>
+    </noscript>
 </body>
 </html>
